@@ -1,0 +1,106 @@
+1. file /dev/hd0 - block special (4/0)
+   file /dev/console - character special (0/1)
+   file /dev/ttup0 - character special (7/0)
+   file /dev/shmem - directory
+   file /dev/mem - writable, regular file, no read permission
+
+2. USER: pwd - /home/user - обычный пользователь
+   SUPERUSER: pwd - /root - суперпользователь(администратор)
+
+3. mkdir LAB1
+   cd LAB1
+
+4. ls /etc
+   cat /etc/services
+
+5. ls -a | wc -l
+      6 файлов (с учетом . и ..)
+
+6. find /boot - дерево подкаталогов
+   find /boot -size 1[c] | wc -l - количество файлов, меньше 1КБ
+   (6 файлов)
+   cd /boot/sys
+   ls -F* (17)
+   cd ../boot/fs
+   ls -F* (3)
+   cd ../boot/build
+   ls -F* (6)
+
+7. ls -l ../.. (из папки home/user)
+   boot имеет 5 жестких связей
+ 
+8. vi test
+   Исходные флаги доступа -rw-rw-r--
+   -rw- права на чтение и запись для владельца
+   -rw- права на чтение и запись для группы пользователей
+    r-- права на чтение для остальных пользователей в системе
+
+    Флаги ставятся для защиты файла от несанкционированного доступа
+    С помощью chmod можно установить новые права
+
+9. mkdir LAB1
+   cd dir1
+   vi test
+   cp test test1  
+   cp test test2
+   cp test test3
+   cp test test4
+   cp test test5
+   cp test test6
+   cp test test7
+   cp test test8
+   cp test test9
+   cp test test10
+
+   mv test5 .. перемещение 3-х файлов из lab1 в user (вышележащий каталог)
+   mv test6 ..
+   mv test7 ..
+
+   rm -i test8  удаление с подтверждением
+   rm -i test9
+   rm -i test10
+   
+   Если изменить права доступа на директорию (-t), то файл с флагом w нельзя удалить.
+
+10. echo $HOME - /home/user
+    echo $LOGNAME - user
+    echo $PATH - /bin:/usr/bin:.......(очень длинное)
+    echo $PWD - /home/user - текущий рабочий каталог
+    echo $RANDOM - 31574 (меняется со временем)
+     
+11. ls /bin
+    echo $? - 0 (успех)
+
+    ls /pin
+    echo $? - 1 (провал)
+
+12. ls -C /bin > test
+    cat test
+    ls -C /usr/bin > test
+    cat test
+
+13. echo rm /usr/bin/g* - 7 файлов
+    echo rm /usr/bin/t* - 14 файлов
+
+14. cat /etc/passwd | wc -l - 10 пользователей
+
+15. cat /etc/group | wc -l - 15 групп
+
+16. cat /etc/passwd | grep -v x | wc -l - 2 пользователя (root и user)
+
+17. chmod u-r test - u-user, - - запретить, r - read 
+
+18. chmod o-r test - o-other, - - запретить, r - read 
+
+19. chmod u-w test - u-user, - - запретить, r - write 
+
+20. chmod o-w test - o-other, - - запретить, r - write 
+
+21. chmod o+rwx LAB1 - o-other, + - разрешить, r - read, w - write, x -eXecute
+    chmod o-rwx LAB1 - o-other, - - запретить, r - read, w - write, x -eXecute
+
+22. chmod ugo+rx LAB1 - u - user, g - group, o - other, + - разрешить, r - read, x - eXecute
+    chmod ugo-w LAB1 - u - user, g - group, o - other, - - запретить, w - write
+
+23. chmod ug+x LAB1 - u - user, g - group, + - разрешить, x - eXecute
+    chmod o-x LAB1 - o - other, x - eXecute

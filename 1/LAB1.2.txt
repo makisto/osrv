@@ -1,0 +1,38 @@
+Запуск скриптов: sh <имя_скрипта>.sh <параметры>
+
+Скрипт 1:
+#!/bin/bash
+
+i=1
+
+for argument in "$@"
+do 
+  echo "$argument" 
+  let "i+=1"
+done
+
+exit 0;
+
+Скрипт 2:
+#!/bin/bash
+
+pidin | grep $1
+if [ $? -ne 0 ]; then
+    echo "Bad command name"
+    exit 1;
+fi
+
+exit 0;
+
+
+Скрипт 3:
+#!/bin/bash
+
+gcc $1.c -o $1
+if [ $? -ne 0 ]; then
+    gedit $1.c
+    exit 1;
+fi
+./$1 
+
+exit 0;
